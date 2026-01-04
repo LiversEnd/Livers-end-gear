@@ -66,7 +66,7 @@
   <div class="container">
     <h1>Livers End Gear – Classic Tee</h1>
 
-    <img src="https://via.placeholder.com/500x500.png?text=Livers+End+Gear" alt="Livers End Gear Shirt">
+    <img src="https://images.steamusercontent.com/ugc/13405198441435777473/34A5CD22A08521DF40E40BAE312847E0F6B2CAE9/" alt="Livers End Gear Shirt">
 
     <p class="price">$30.00 USD</p>
 
@@ -120,7 +120,7 @@
       </button>
 
       <p class="note">
-        You will be charged $30. Order is printed and shipped by Printful.
+      
       </p>
     </form>
   </div>
@@ -133,7 +133,7 @@
       const data = Object.fromEntries(formData.entries());
 
       // TODO: Replace with your Cloudflare Worker URL
-      const BACKEND_URL = "https://YOUR-WORKER-URL.workers.dev/order";
+      const BACKEND_URL = "https://livers-end-gear-worker.liversendofficial.workers.dev/";
 
       const response = await fetch(BACKEND_URL, {
         method: "POST",
@@ -150,3 +150,4 @@
   </script>
 </body>
 </html>
+
