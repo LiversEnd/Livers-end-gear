@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Livers End Gear – Classic Tee</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #111;
+      color: #fff;
+      margin: 0;
+      padding: 20px;
+    }
+    .container {
+      max-width: 500px;
+      margin: auto;
+      background: #1a1a1a;
+      padding: 20px;
+      border-radius: 8px;
+    }
+    h1 {
+      text-align: center;
+    }
+    img {
+      width: 100%;
+      border-radius: 6px;
+    }
+    label {
+      display: block;
+      margin-top: 15px;
+    }
+    input, select {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border-radius: 4px;
+      border: none;
+    }
+    button {
+      margin-top: 20px;
+      width: 100%;
+      padding: 15px;
+      background: #00c853;
+      color: #000;
+      border: none;
+      font-size: 16px;
+      cursor: pointer;
+      border-radius: 6px;
+    }
+    .price {
+      font-size: 20px;
+      text-align: center;
+      margin: 10px 0;
+    }
+    .note {
+      font-size: 12px;
+      opacity: 0.7;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h1>Livers End Gear – Classic Tee</h1>
+
+    <img src="https://via.placeholder.com/500x500.png?text=Livers+End+Gear" alt="Livers End Gear Shirt">
+
+    <p class="price">$30.00 USD</p>
+
+    <p>
+      Premium cotton tee featuring the official Livers End Gear design.
+      Printed and shipped on demand.
+    </p>
+
+    <!-- ORDER FORM -->
+    <form id="orderForm">
+      <label>Size</label>
+      <select name="size" required>
+        <option value="">Select size</option>
+        <option>S</option>
+        <option>M</option>
+        <option>L</option>
+        <option>XL</option>
+      </select>
+
+      <label>Color</label>
+      <select name="color" required>
+        <option value="">Select color</option>
+        <option>Black</option>
+        <option>White</option>
+      </select>
+
+      <label>Full Name</label>
+      <input type="text" name="name" required />
+
+      <label>Email</label>
+      <input type="email" name="email" required />
+
+      <label>Address</label>
+      <input type="text" name="address1" required />
+
+      <label>City</label>
+      <input type="text" name="city" required />
+
+      <label>State / Province</label>
+      <input type="text" name="state" required />
+
+      <label>ZIP / Postal Code</label>
+      <input type="text" name="zip" required />
+
+      <label>Country Code (e.g. US, CA)</label>
+      <input type="text" name="country" value="US" required />
+
+      <!-- PAYMENT BUTTON PLACEHOLDER -->
+      <button type="submit">
+        Pay with PayPal & Place Order
+      </button>
+
+      <p class="note">
+        You will be charged $30. Order is printed and shipped by Printful.
+      </p>
+    </form>
+  </div>
+
+  <script>
+    document.getElementById("orderForm").addEventListener("submit", async function (e) {
+      e.preventDefault();
+
+      const formData = new FormData(e.target);
+      const data = Object.fromEntries(formData.entries());
+
+      // TODO: Replace with your Cloudflare Worker URL
+      const BACKEND_URL = "https://YOUR-WORKER-URL.workers.dev/order";
+
+      const response = await fetch(BACKEND_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data)
+      });
+
+      if (response.ok) {
+        alert("Order received! You will get a confirmation email.");
+      } else {
+        alert("Order failed. Please contact support.");
+      }
+    });
+  </script>
+</body>
+</html>
