@@ -1,79 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Livers End Gear – Classic Tee</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-
+  <meta charset="UTF-8">
+  <title>Livers End Gear</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #111;
-      color: #fff;
-      margin: 0;
-      padding: 20px;
-    }
-    .container {
-      max-width: 500px;
-      margin: auto;
-      background: #1a1a1a;
-      padding: 20px;
-      border-radius: 8px;
-    }
-    h1 {
-      text-align: center;
-    }
-    img {
-      width: 100%;
-      border-radius: 6px;
-    }
-    label {
-      display: block;
-      margin-top: 15px;
-    }
-    input, select {
-      width: 100%;
-      padding: 10px;
-      margin-top: 5px;
-      border-radius: 4px;
-      border: none;
-    }
-    button {
-      margin-top: 20px;
-      width: 100%;
-      padding: 15px;
-      background: #00c853;
-      color: #000;
-      border: none;
-      font-size: 16px;
-      cursor: pointer;
-      border-radius: 6px;
-    }
-    .price {
-      font-size: 20px;
-      text-align: center;
-      margin: 10px 0;
-    }
-    .note {
-      font-size: 12px;
-      opacity: 0.7;
-      margin-top: 10px;
-    }
+    body { font-family: Arial; background:#111; color:#fff; padding:20px; }
+    .container { max-width:500px; margin:auto; background:#1a1a1a; padding:20px; border-radius:8px;}
+    h1{text-align:center;}
+    img{width:100%;border-radius:6px;}
+    label{display:block;margin-top:15px;}
+    input,select,textarea{width:100%;padding:10px;margin-top:5px;border-radius:4px;border:none;}
+    button{margin-top:20px;width:100%;padding:15px;background:#00c853;color:#000;font-size:16px;cursor:pointer;border-radius:6px;}
+    .price{text-align:center;font-size:20px;margin:10px 0;}
+    .note{font-size:12px;opacity:0.7;margin-top:10px;}
   </style>
 </head>
-
 <body>
   <div class="container">
     <h1>Livers End Gear – Classic Tee</h1>
-
     <img src="https://images.steamusercontent.com/ugc/13405198441435777473/34A5CD22A08521DF40E40BAE312847E0F6B2CAE9/" alt="Livers End Gear Shirt">
-
     <p class="price">$30.00 USD</p>
-
-    <p>
-      Premium cotton tee featuring the official Livers End Gear design.
-      Printed and shipped on demand.
-    </p>
+    <p>Premium cotton tee featuring the official Livers End Gear design. Printed & shipped on demand.</p>
 
     <!-- ORDER FORM -->
     <form id="orderForm">
@@ -94,60 +42,60 @@
       </select>
 
       <label>Full Name</label>
-      <input type="text" name="name" required />
+      <input type="text" name="name" required>
 
       <label>Email</label>
-      <input type="email" name="email" required />
+      <input type="email" name="email" required>
 
       <label>Address</label>
-      <input type="text" name="address1" required />
+      <input type="text" name="address1" required>
 
       <label>City</label>
-      <input type="text" name="city" required />
+      <input type="text" name="city" required>
 
       <label>State / Province</label>
-      <input type="text" name="state" required />
+      <input type="text" name="state" required>
 
       <label>ZIP / Postal Code</label>
-      <input type="text" name="zip" required />
+      <input type="text" name="zip" required>
 
-      <label>Country Code (e.g. US, CA)</label>
-      <input type="text" name="country" value="US" required />
+      <label>Country Code (e.g., US, CA)</label>
+      <input type="text" name="country" value="US" required>
 
-      <!-- PAYMENT BUTTON PLACEHOLDER -->
-      <button type="submit">
-        Pay with PayPal & Place Order
-      </button>
-
+      <!-- MANUAL PAYMENT INSTRUCTIONS -->
       <p class="note">
-      
+        Please send $30 to <strong>your personal PayPal email</strong>. 
+        Then submit this form to complete your order.
       </p>
+
+      <button type="submit">Submit Order</button>
     </form>
   </div>
 
   <script>
-    document.getElementById("orderForm").addEventListener("submit", async function (e) {
+    document.getElementById("orderForm").addEventListener("submit", async function(e) {
       e.preventDefault();
 
       const formData = new FormData(e.target);
       const data = Object.fromEntries(formData.entries());
 
-      // TODO: Replace with your Cloudflare Worker URL
       const BACKEND_URL = "https://livers-end-gear-worker.liversendofficial.workers.dev/";
 
-      const response = await fetch(BACKEND_URL, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data)
-      });
-
-      if (response.ok) {
-        alert("Order received! You will get a confirmation email.");
-      } else {
-        alert("Order failed. Please contact support.");
+      try {
+        const res = await fetch(BACKEND_URL, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data)
+        });
+        if(res.ok) alert("Order submitted! We'll process it after payment is received.");
+        else alert("Error submitting order. Contact support.");
+      } catch(err) {
+        alert("Network error. Try again later.");
       }
     });
   </script>
 </body>
 </html>
+
+
 
